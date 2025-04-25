@@ -19,7 +19,7 @@ def train_data():
             q.append((str(raw_dataset['Word'][x]),raw_dataset['POS'][x]))
     dt[count] = q
     
-    with open('sentences.json','w') as json_file:
+    with open('sentences.json','w',encoding='utf-8') as json_file:
         json.dump(dt,json_file,indent=4)
     
     return
