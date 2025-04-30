@@ -1,0 +1,248 @@
+97c97
+< ruling	VBG	VBG	MATCH
+---
+> ruling	VBG	NN	MISMATCH
+240c240
+< backing	NN	VBG	MISMATCH
+---
+> backing	NN	NN	MATCH
+1112c1112
+< South	NNP	NNP	MATCH
+---
+> South	NNP	JJ	MISMATCH
+1390c1390
+< military	NN	NN	MATCH
+---
+> military	NN	JJ	MISMATCH
+1416c1416
+< much	JJ	RB	MISMATCH
+---
+> much	JJ	JJ	MATCH
+1787c1787
+< �	,	;	MISMATCH
+---
+> �	,	``	MISMATCH
+2205c2205
+< Muslims	NNS	NNPS	MISMATCH
+---
+> Muslims	NNS	NNS	MATCH
+2246c2246
+< evil	NN	NN	MATCH
+---
+> evil	NN	JJ	MISMATCH
+2593c2593
+< Itar-Tass	NNP	NNP	MATCH
+---
+> Itar-Tass	NNP	JJ	MISMATCH
+2717c2717
+< late	JJ	RB	MISMATCH
+---
+> late	JJ	JJ	MATCH
+3437c3437
+< diabetes	NNS	NNS	MATCH
+---
+> diabetes	NNS	NN	MISMATCH
+3519c3519
+< Summit	NNP	NNP	MATCH
+---
+> Summit	NNP	NN	MISMATCH
+3571c3571
+< pardoned	VBD	VBD	MATCH
+---
+> pardoned	VBD	VBN	MISMATCH
+3624c3624
+< targeted	VBD	VBD	MATCH
+---
+> targeted	VBD	JJ	MISMATCH
+3970c3970
+< Merck	NNP	NNP	MATCH
+---
+> Merck	NNP	NN	MISMATCH
+4035c4035
+< her	PRP$	PRP	MISMATCH
+---
+> her	PRP$	PRP$	MATCH
+4099c4099
+< drunk	JJ	NN	MISMATCH
+---
+> drunk	JJ	JJ	MATCH
+4323c4323
+< caused	VBD	VBD	MATCH
+---
+> caused	VBD	VBN	MISMATCH
+4501c4501
+< west	JJS	VB	MISMATCH
+---
+> west	JJS	JJS	MATCH
+4801c4801
+< official	JJ	NN	MISMATCH
+---
+> official	JJ	JJ	MATCH
+5029c5029
+< wild	NN	NN	MATCH
+---
+> wild	NN	JJ	MISMATCH
+6117c6117
+< report	NN	VB	MISMATCH
+---
+> report	NN	VBP	MISMATCH
+6326c6326
+< Religious	NNP	NNP	MATCH
+---
+> Religious	NNP	JJ	MISMATCH
+6779c6779
+< Professionals	NNPS	NNPS	MATCH
+---
+> Professionals	NNPS	NNP	MISMATCH
+7442c7442
+< TV	NNP	NNP	MATCH
+---
+> TV	NNP	NN	MISMATCH
+7820c7820
+< operated	VBD	VBD	MATCH
+---
+> operated	VBD	VBN	MISMATCH
+8197c8197
+< to	TO	TO	MATCH
+---
+> to	TO	IN	MISMATCH
+8202c8202
+< Islamic	JJ	NNP	MISMATCH
+---
+> Islamic	JJ	JJ	MATCH
+8531c8531
+< Soviet	JJ	NNP	MISMATCH
+---
+> Soviet	JJ	JJ	MATCH
+9038c9038
+< the	DT	NNP	MISMATCH
+---
+> the	DT	DT	MATCH
+9046c9046
+< demonizing	VBG	VBG	MATCH
+---
+> demonizing	VBG	NN	MISMATCH
+9555c9555
+< -	IN	:	MISMATCH
+---
+> -	IN	IN	MATCH
+10004c10004
+< sentenced	VBN	VBD	MISMATCH
+---
+> sentenced	VBN	VBN	MATCH
+10268c10268
+< ruin	NN	VB	MISMATCH
+---
+> ruin	NN	NN	MATCH
+10803c10803
+< presented	VBN	VBD	MISMATCH
+---
+> presented	VBN	VBN	MATCH
+11592c11592
+< continued	JJ	VBN	MISMATCH
+---
+> continued	JJ	JJ	MATCH
+11753c11753
+< Shi'ite	NN	NNP	MISMATCH
+---
+> Shi'ite	NN	JJ	MISMATCH
+12043c12043
+< flattened	VBD	VBD	MATCH
+---
+> flattened	VBD	VBN	MISMATCH
+12082c12082
+< Muslim	NNP	NNP	MATCH
+---
+> Muslim	NNP	NN	MISMATCH
+12507c12507
+< SARS	NNP	NNS	MISMATCH
+---
+> SARS	NNP	NNP	MATCH
+12776c12776
+< many	JJ	NN	MISMATCH
+---
+> many	JJ	JJ	MATCH
+13635c13635
+< patient	NN	NN	MATCH
+---
+> patient	NN	JJ	MISMATCH
+14102c14102
+< right	NN	NN	MATCH
+---
+> right	NN	JJ	MISMATCH
+14254c14254
+< convoy	NN	NN	MATCH
+---
+> convoy	NN	JJ	MISMATCH
+14926c14926
+< hold	VBP	VBP	MATCH
+---
+> hold	VBP	NN	MISMATCH
+15536c15536
+< such	JJ	PDT	MISMATCH
+---
+> such	JJ	JJ	MATCH
+15559c15559
+< chief	JJ	NN	MISMATCH
+---
+> chief	JJ	JJ	MATCH
+15905c15905
+< ruling	NN	VBG	MISMATCH
+---
+> ruling	NN	NN	MATCH
+16883c16883
+< early	JJ	RB	MISMATCH
+---
+> early	JJ	JJ	MATCH
+17339c17339
+< destroyed	VBD	VBD	MATCH
+---
+> destroyed	VBD	VBN	MISMATCH
+17482c17482
+< based	VBD	VBD	MATCH
+---
+> based	VBD	VBN	MISMATCH
+17774c17774
+< associate	JJ	NN	MISMATCH
+---
+> associate	JJ	JJ	MATCH
+18149c18149
+< rely	VBP	VB	MISMATCH
+---
+> rely	VBP	VBP	MATCH
+18326c18326
+< claimed	VBD	VBD	MATCH
+---
+> claimed	VBD	VBN	MISMATCH
+18567c18567
+< as	IN	IN	MATCH
+---
+> as	IN	RB	MISMATCH
+19301c19301
+< earlier	RBR	RBR	MATCH
+---
+> earlier	RBR	RB	MISMATCH
+19975c19975
+< released	VBN	VBD	MISMATCH
+---
+> released	VBN	VBN	MATCH
+21254c21254
+< chief	NN	NN	MATCH
+---
+> chief	NN	JJ	MISMATCH
+21613c21613
+< earlier	RBR	RBR	MATCH
+---
+> earlier	RBR	RB	MISMATCH
+21679c21679
+< accused	VBN	VBD	MISMATCH
+---
+> accused	VBN	VBN	MATCH
+21745c21745
+< about	RB	IN	MISMATCH
+---
+> about	RB	RB	MATCH
+22016c22016
+< breached	VBN	VBD	MISMATCH
+---
+> breached	VBN	VBN	MATCH
