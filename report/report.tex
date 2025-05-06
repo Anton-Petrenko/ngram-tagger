@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{pgfplots} % plots
+\usepackage{listings} % code
+\usepackage{geometry}
+
+\geometry{a4paper, portrait, margin=1in}
+
+\definecolor{comments}{rgb}{0,0.6,0}
+\definecolor{keywords}{rgb}{0.70, 0, 0.85}
+\definecolor{numbers}{rgb}{0.45,0.35,0.15}
+\definecolor{strings}{rgb}{0.65,0.1,0.1}
+\definecolor{background}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{python_style}{
+    backgroundcolor=\color{background},   
+    commentstyle=\color{comments},
+    keywordstyle=\color{keywords},
+    numberstyle=\tiny\color{numbers},
+    stringstyle=\color{strings},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=python_style}
+
+\title{Final Project}
+\author{Luis Gilbuena, Matthew Merritt, Michael Merritt, Anton Petrenko}
+\date{May 7, 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Approach}
+
+\subsection{Primary Data Structure}
+
+The key idea to our approach was to construct a dictionary that would use $n$-grams (represented as tuples) as keys and return the most likely part of speech for the word given
+that specific $n$-gram. This was done by going through the dataset and constructing $n$-grams from each sentence using the actual part of speech, and tallying the results as we
+went. Once all of the dataset was parsed and added to the dictionary, the dictionary was then separated into two sets: 
+\begin{itemize}
+    \item \textbf{``Unanimous''} $n$-grams that always resulted in the same part of speech during training regardless of additional context, such as a bigram that always 
+    resulted in the word being tagged as a verb.
+    \item \textbf{``Non-unanimous''} $n$-grams that could result in different parts of speech with additional context, such a trigram that could result in being tagged as a noun
+    or a verb based on the words before it.
+\end{itemize}
+Once these two sets are separated, we then store only the most likely option for the part of speech for every $n$-gram to return when queried, and remove all of the additional 
+tallying information.
+
+\subsection{$n$-gram Lookup Order}
+
+Using the two sets mentioned above, we modified our approach to use the smallest amount of information needed to get a definitive answer.
+Specifically, we first check the unanimous set to see if the unigram always leads to the same part of speech regardless of what comes next, followed by the same check for the 
+bigram, trigram, and quadgram. Assuming that there was no single answer beforehand, we then use the non-unanimous set to find the most likely result from the quadgram, trigram, 
+bigram, or unigram, checking them in that order. If there are still no results for the given $n$-gram in either set, we default to assuming that the word is a noun (``NN''), 
+the most common part of speech.
+
+\subsection{Jackknife Training}
+
+For the training process, we used a jackknife technique to split the data into separate training and testing datasets, with each slice created by the jackknife procedure
+setting aside 1000 sentences for the testing dataset, and using the remaining sentences as the training dataset. Since there were 47959 sentences in total, this means that
+48 different training and testing sets were created and tested (the final testing set was only 959 sentences rather than the full 1000, since the dataset did not split evenly).
+The accuracy was then taken as the average of all 48 different trials.
+
+\subsection{Separate Implementations}
+To test out a few different implementation ideas we had as a group, we created three separate implementations of the aforementioned approach.
+
+\begin{itemize}
+    \item \textbf{Luis's implementation}, which does x
+    \item \textbf{Anton's implementation}, which does y
+    \item \textbf{The Merritt's implementation}, which does z
+\end{itemize}
+
+Each implementation will be discussed more in depth in its own section below.\\
+
+\pagebreak
+
+\section{Implementations}
+
+This section focuses on the Python implementations of the general approach described above.
+
+\input{implementations/luis}
+\input{implementations/anton}
+\input{implementations/merritt}
+
+\pagebreak
+
+\section{Reflection}
+
+Some sort of conclusion goes here.
+
+\end{document}
