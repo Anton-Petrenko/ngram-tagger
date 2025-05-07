@@ -175,3 +175,7 @@ cython_debug/
 
 # ensure that models to not go up
 models/*
+
+# Merritt implementation files
+*_output.txt
+logs.txt
