@@ -76,7 +76,7 @@ def unigram_model(testing,model):
                 res += 1
                 continue
     print('unigram:',res/words)
-    return res
+    return res/words
 def bigram_model(testing,model):
     res = 0
     words = 0
@@ -107,7 +107,7 @@ def bigram_model(testing,model):
                     res += 1
                     continue
     print('bigram:',res/words)
-    return res
+    return res/words
 def trigram_model(testing,model):
     res = 0
     words = 0
@@ -148,8 +148,8 @@ def trigram_model(testing,model):
                 if pos == 'NN':
                     res += 1
                     continue
-    print(res/words)
-    return res
+    print('trigram:',res/words)
+    return res/words
 
 def quadgram_model(testing,model):
     res = 0
@@ -202,7 +202,7 @@ def quadgram_model(testing,model):
                 res += 1
                 continue
     print('quadgram:',res/words)
-    return res
+    return res/words
 
 if __name__ == '__main__':
     
@@ -259,7 +259,7 @@ if __name__ == '__main__':
                 bi += bigram_model(testing_set,model)
                 tri += trigram_model(testing_set,model)
                 quad += quadgram_model(testing_set,model)
-        print("unigram:",uni/count)
-        print("bigram:",bi/count)
-        print("trigram:",tri/count)
-        print("quadgram:",quad/count)
+        print("final unigram:",uni/48)
+        print("final bigram:",bi/48)
+        print("final trigram:",tri/48)
+        print("final quadgram:",quad/48)
