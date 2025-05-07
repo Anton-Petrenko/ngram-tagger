@@ -179,3 +179,34 @@ models/*
 # Merritt implementation files
 *_output.txt
 logs.txt
+
+# latexmk generated files
+*.aux
+*.log
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.pdf
+*.toc
+
+# save errors
+*-SAVE-ERROR
+
+# new format generated files
+*.acn
+*.glo
+*.glsdefs
+*.ist
+*.run.xml
+
+# beamer presentation
+*.nav
+*.out
+*.snm
+
+# allow template pdf through for demonstration
+!report/template.pdf
