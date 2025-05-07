@@ -2,11 +2,29 @@
 
 \subsubsection{Implementation}
 
-Describe how your approach differs from the overall approach (what you did differently in specific, like data structure implementation).
+In terms of differences between this approach and the rest, the approach developed 
+by Matthew and Michael Merritt has a few changes in the hopes of lowering data
+preprocessing time as well as using additional failsafes to resolve ties with the
+goal of obtaining better accuracy. For the changes to reduce data load times,
+this approach utilizes a pandas dataframe which can have functions mapped onto the
+entire dataframe more efficiently rather than having to iterate row by row and apply
+the functions individually. Regarding the additional failsafes, this approach tries
+to resolve ties within the non-unanimous $n$-grams that arise in the training process 
+by failing down to the next smallest $n$-gram to break the tie more accurately as
+opposed to just randomly picking one of the tied options. This tiebreaking improvement
+was implemented because it was observed that the vast majority of incorrect guesses
+our approach was making was due to these aforementioned ties, resulting in a
+significantly lower accuracy than expected.
 
 \begin{lstlisting}[language=Python]
-print('Any example code should be formatted like this')
+# TODO: put any essential code here
 \end{lstlisting}
 
 \subsubsection{Results}
-The accuracy of this implementation of the $n$-gram tagger was 100\%, and the program had a total runtime of 100 seconds.
+The results of this implementation of the $n$-gram tagger were as follows:
+\begin{itemize}
+    \item \textbf{Unigram only:} 100\% accuracy, runtime of 100s
+    \item \textbf{Up to bigram:} 100\% accuracy, runtime of 100s
+    \item \textbf{Up to trigram:} 100\% accuracy, runtime of 100s
+    \item \textbf{Up to quadgram:} 100\% accuracy, runtime of 100s
+\end{itemize}
