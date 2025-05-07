@@ -22,7 +22,7 @@ class Tagger:
 
             test_set = file_lines[start:end]
             training_set = file_lines[:start] + file_lines[end:]
-            print("iter", start, end, iter_num, "left")
+            print(f"Jackknifing: {iter_num} iterations left")
 
             self.create_model(training_set, highest_gram)
             # self.save_model()
@@ -34,7 +34,7 @@ class Tagger:
             if total_iter: total_iter = [total_iter[i]+totals[i] for i in range(len(totals))]
             else: total_iter = totals
             for i in range(len(total_correct)):
-                print(f"{WORD_MAP[i]}: {round((total_correct[i]/total_iter[i])*100, 2)}")
+                print(f"{WORD_MAP[i]}: {round((total_correct[i]/total_iter[i])*100, 2)}%")
 
             iter_num -= 1
             cur_iter += 1
@@ -66,9 +66,11 @@ class Tagger:
         for sentence in lines:
             history = []
             for word in sentence:
-                guesses = [self.model_guess(word[1], [], debug)]
-                for i in range(highest_gram-1):
-                    guesses.append(self.model_guess(word[1], history[(-i-1):], debug))
+                # guesses = [self.model_guess(word[1], [], debug)]
+                guesses = [0]*highest_gram
+                # for i in range(highest_gram-1):
+                #     guesses.append(self.model_guess(word[1], history[(-i-1):], debug))
+                guesses[highest_gram-1] = self.model_guess(word[1], history[(-(highest_gram-1)-1):], debug)
                 if debug: print(guesses)
                 for i, guess in enumerate(guesses):
                     if debug: print(f"Model {i} guesses {guess} --> {word[2]}")
