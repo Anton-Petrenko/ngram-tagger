@@ -1,25 +1,41 @@
 import csv
 import json
 
+WORD_MAP = {0: "Unigram", 1: "Bigram", 2: "Trigram", 3: "Quadgram"}
+
 class Tagger:
     def __init__(self):
         self.data = {}
     
     def run_jackknife(self, testing_set_size: int = 1000, iterations: int = None, highest_gram: int = 4, debug: bool = False):
         file_lines = self.get_lines_from_file()
+        # file_lines = self.get_sentences_from_file()
         iter_num = len(file_lines) // testing_set_size if iterations == None else iterations
+        # print(len(file_lines))
+        # print(iter_num)
+        # quit()
         cur_iter = 0
+        total_correct = []
+        total_iter = []
         while iter_num != 0:
             start = testing_set_size*cur_iter
             end = start + testing_set_size
 
             test_set = file_lines[start:end]
             training_set = file_lines[:start] + file_lines[end:]
-            print("iter", start, end)
+            print("iter", start, end, iter_num, "left")
 
             self.create_model(training_set, highest_gram)
-            self.save_model()
-            self.evaluate_model(test_set, highest_gram, debug)
+            # self.save_model()
+            # quit()
+            correct, totals = self.evaluate_model(test_set, highest_gram, debug)
+
+            if total_correct: total_correct = [total_correct[i]+correct[i] for i in range(len(correct))]
+            else: total_correct = correct
+            if total_iter: total_iter = [total_iter[i]+totals[i] for i in range(len(totals))]
+            else: total_iter = totals
+            for i in range(len(total_correct)):
+                print(f"{WORD_MAP[i]}: {round((total_correct[i]/total_iter[i])*100, 2)}")
 
             iter_num -= 1
             cur_iter += 1
@@ -30,6 +46,9 @@ class Tagger:
         totals = [0]*highest_gram
         for line in lines:
             guesses = [self.model_guess(line[1], [], debug)]
+            # if line[1] == "backing" and history == [',', 'IN', 'NNP']: 
+            #     print(self.model_guess(line[1], history, True))
+            #     quit()
             for i in range(highest_gram-1):
                 guesses.append(self.model_guess(line[1], history[(-i-1):], debug))
             if debug: print(guesses)
@@ -42,7 +61,7 @@ class Tagger:
             else: history.append(line[2])
             if len(history) == highest_gram: history.pop(0)
             if debug: input()
-        print(correct, totals)
+        return correct, totals
 
     def model_guess(self, word: str, history: list[str], debug: bool):
         if debug: print(f"Analyzing {word} with history {history}")
@@ -91,6 +110,23 @@ class Tagger:
                 self.data[key][pos] = 1
         else:
             self.data[key] = { pos: 1 }
+
+    def get_sentences_from_file(self):
+        lines_from_file = self.get_lines_from_file()
+        ret = []
+        sentence = []
+        for line in lines_from_file:
+            # print(line)
+            if line[0].startswith("Sentence"):
+                if sentence == []: 
+                    sentence.append(line)
+                    continue
+                ret.append(sentence)
+                sentence = [line]
+                # print(ret)
+            else:
+                sentence.append(line)
+        return ret
 
     def get_lines_from_file(self):
         csv_file = open("ner_dataset2.csv", "r")
