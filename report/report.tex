@@ -77,8 +77,8 @@ The accuracy was then taken as the average of all 48 different trials.
 To test out a few different implementation ideas we had as a group, we created three separate implementations of the aforementioned approach.
 
 \begin{itemize}
-    \item \textbf{Luis's implementation}, which uses a JSON file to load the sentence data and uses sets to handle tiebreakers.
     \item \textbf{Anton's implementation}, which uses Python's built-in CSV module and strings as keys for the dictionaries instead of tuples.
+    \item \textbf{Luis's implementation}, which uses a JSON file to load the sentence data and uses sets to handle tiebreakers.
     \item \textbf{The Merritt's implementation}, which uses pandas DataFrames to load the data all at once and then applies functions to columns and rows of the data to build our model.
 \end{itemize}
 
@@ -88,14 +88,16 @@ Each implementation will be discussed more in depth in its own section below.\\
 
 This section focuses on the Python implementations of the general approach described above.
 
-\input{implementations/luis}
 \input{implementations/anton}
+\input{implementations/luis}
 \input{implementations/merritt}
 
+\pagebreak
 \section{Reflection}
 
-Out of the three different implementations of the base approach, Anton's implementation was the fastest and most accurate. This speed was likely the result of having less overhead by using the built-in Python CSV reading module and storing keys as strings instead of tuples, which take additional time to construct. Luis' approach performed slightly slower than Anton's approach and had slightly lower accuracy, but ran for a consistently short amount of time for all sizes of $n$-gram model. The Merritt's approach performed the slowest by a notable margin, having the most overhead when it came to processing the original data and building the initial dictionary to count occurrences. This was likely due to additional work required by the pandas module when augmenting the data with sentence numbers and history.
+Out of the three different implementations of the base approach, Anton's implementation was the fastest and most accurate. This speed was likely the result of having less overhead by using the built-in Python CSV reading module and storing keys as strings instead of tuples, which take additional time to construct. Luis's approach performed slightly slower than Anton's approach and had slightly lower accuracy, but ran for a consistently short amount of time for all sizes of $n$-gram model. The Merritt's approach performed the slowest by a notable margin, having the most overhead when it came to processing the original data and building the initial dictionary to count occurrences. This was likely due to additional work required by the pandas module when augmenting the data with sentence numbers and history.
 
+\vspace{1cm}
 \noindent
 \begin{tabular}{|m{4cm}|m{4cm}|m{3cm}|m{3cm}|}
     \hline

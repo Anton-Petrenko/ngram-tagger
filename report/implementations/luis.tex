@@ -2,25 +2,33 @@
 
 \subsubsection{Implementation}
 
-In cases where a word has multiple parts of speech with equal highest frequencies---say the word `accused` has a unigram frequency dictionary of \{`VBN`:3, `VBD`:3\}---we assign the word a set containing parts of speech tied for the highest frequency. In the case we reach the non-unanimous dictionaries, instead of checking if the true part of speech is equal to the value, given the key is in the dictionary, we check if the true part of speech is inside the set.
+This approach uses the JSON library to convert the given CSV file into a JSON file where each sentence is represented as a list of (word, part-of-speech) tuples. These generated sentences are then split into two types of sets of different sizes using the jackknife method. The testing set, containing at most 1000 sentences with each sentence having their list of words associated with their true part of speech, and the training set, containing the rest of the sentences in the same format as the testing set. This implementation proves to be more consistent compared to others which could be attributed to the model generation stage.
 
+In the model generation portion of the code, 4 dictionaries were created corresponding to the n-grams that were to going to be later tested upon, unigram, bigram, trigram, and quadgram. Each observed unigram, bigram, trigram, and quadgram paired with their part of speech was added to a frequency table for their respective dictionary. In the case where key value pairs had a length of size 1, the key value pairs were shifted from the original 4 dictionaries and put into another list of dictionaries assigned for non-unanimous n-grams. For unianimous n-grams, the key value pairs would stay in their respected dictionaries and would later be sectioned as unanimous frequency tables/dictionaries. 
+
+Handling cases where keys would have multiple parts of speech with the equal highest frequencies was where this implementation differs. In cases where a word has multiple parts of speech with equal highest frequencies---say the word `accused` has a unigram frequency dictionary of \{`VBN`:3, `VBD`:3\}---we assign the word a set containing parts of speech tied for the highest frequency. In the case we reach the non-unanimous dictionaries, instead of checking if the true part of speech is equal to the value, given the key is in the dictionary, we check if the true part of speech is inside the set.
 \begin{lstlisting}[language=Python]
 for x in range(4):
-    mdl = model[x]
-    for key in list(mdl.keys()):
-        if len(mdl[key]) > 1:
-            maxvalue = max(mdl[key].values())
-            maxval = set()
-            for y in mdl[key]:
-                if mdl[key][y] == maxvalue:
-                    maxval.add(y)
-            multimodel[x][key] = maxval
-            del mdl[key]
-        else:
-            pos = [x for x in model[x][key]]
-            model[x][key] = pos[0]
-return model + multimodel
+        mdl = model[x]
+        for key in list(mdl.keys()):
+            if len(mdl[key]) > 1:
+                maxvalue = max(mdl[key].values())
+                maxval = set()
+                for y in mdl[key]:
+                    if mdl[key][y] == maxvalue:
+                        maxval.add(y)
+                multimodel[x][key] = maxval
+                del mdl[key]
+            else:
+                pos = [x for x in model[x][key]]
+                model[x][key] = pos[0]
+    return model + multimodel
 \end{lstlisting}
+After the training process, the testing model contains a list of 8 dictionaries in the following order: 
+\begin{lstlisting}[language=Python]
+    [(unanimous unigram), (unanimous bigram), (unianimous trigram), (unianimous quadgram), (non-unanimous quadgram), (non-unanimous trigram), (non-unanimous bigram), (non-unanimous unigram)]. 
+\end{lstlisting}
+The testing process would iterate over this list of dictionaries fomr left to right and check to see if its (word, true part of speech) pair was found in the frequency tables. There are two things that can happen for each dictionary. The key would fail over to its next frequency table or the key-value pair would pass breaking the iteration and moving on to the next word. In the case were the key was not found with its correct part of speech, the model would default its guess as a noun.
 
 \subsubsection{Results}
 The results of this implementation of the $n$-gram tagger were as follows:
