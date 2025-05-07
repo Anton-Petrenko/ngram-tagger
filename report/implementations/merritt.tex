@@ -14,6 +14,48 @@ In the testing against a model stage, the model from the previous stage is taken
 
 In the final jackknifing stage, the raw dataset is divided into training and testing sets that can be passed to the model generation and testing stages. Each iteration selects 1000 sentences for testing and passes the remaining sentences as the training set. Between iterations, the entire model is discarded and rebuilt, with only the correct and incorrect result counts remaining across iterations. Overall accuracy is output at the end.
 
+\begin{lstlisting}[language=Python]
+def generate_ngram_model(training_set, gram_size=4):
+    # ---------------- STAGE 0: PREPROCESSING HISTORY ----------------
+    modified = pd.DataFrame(training_set)
+
+    for n in range(gram_size - 1):
+        modified[f'Previous POS {n + 1}'] = modified['POS'].shift(n + 1)
+        modified[f'Previous POS {n + 1}'] = modified[f'Previous POS {n + 1}'].where(modified['Sentence #'] == modified['Sentence #'].shift(n + 1))
+
+    # ---------------- STAGE 1: INITIAL COUNTING ----------------
+    ngram_map = {}
+
+    def write_to_map(row):
+        previous_pos = list(map(lambda n : row[f'Previous POS {n}'], list(range(1, gram_size))[::-1]))
+        previous_pos = list(filter(lambda pos : not pd.isna(pos), previous_pos))
+
+        patterns = [(*previous_pos[-i:], row['Word']) for i in range(1, len(previous_pos) + 1)]
+        patterns.append(row['Word'])
+
+        for pattern in patterns:
+            if pattern in ngram_map:
+                if row['POS'] in ngram_map[pattern]:
+                    ngram_map[pattern][row['POS']] += 1
+                else:
+                    ngram_map[pattern][row['POS']] = 1
+            else:
+                ngram_map[pattern] = { row['POS']: 1 }
+
+    modified.apply(write_to_map, axis=1)
+
+    # ---------------- STAGE 2: FLATTENING ----------------
+
+    # index 0 is the unanimous map, index 1 is the highest probability map
+    ngram_model = [{}, {}]
+    for (key, pos_map) in ngram_map.items():
+        map_index = 0 if len(pos_map) == 1 else 1
+
+        ngram_model[map_index][key] = max(pos_map, key=pos_map.get)
+
+    return (ngram_map, ngram_model)
+\end{lstlisting}
+
 \subsubsection{Results}
 Ultimately, this approach yielded lower than expected accuracy and generally performed slower than other approaches. In terms of the performance, the biggest impact was in the model generation stage when the mapping function is applied to the rows of the training set. We were able to iterate on this, having initially iterated over the rows individually, taking 2-3 minutes per training set. In the end, we reduced this down to about 15 seconds by applying a function to the rows of the table instead, but this still adds up. Regarding the lower accuracy, comparing our quadgram results to the provided sample output (99.00\% accuracy), we found that only additional incorrect tests we had were when ambiguous decisions occurred, making up the 4\% difference in accuracy. 
 
