@@ -1,4 +1,5 @@
 import json
+import sys
 def train_model(tset):
     model = [ {} for x in range(4)]
     multimodel = [{} for x in range(4)]
@@ -59,9 +60,10 @@ def train_model(tset):
     return model + multimodel
 def unigram_model(testing,model):
     res = 0
+    words = 0
     for sentence in testing:
+        words += len(sentence)
         for word,pos in sentence:
-            temp = res
             if word in model[0]:
                 if model[0][word] == pos:
                     res += 1
@@ -73,14 +75,15 @@ def unigram_model(testing,model):
             if pos == 'NN':
                 res += 1
                 continue
+    print('unigram:',res/words)
     return res
 def bigram_model(testing,model):
     res = 0
-    
-    
+    words = 0
     for sentence in testing:
         bi = [None,None]
         prev = None
+        words += len(sentence)
         for word,pos in sentence:
             bi[0],bi[1] = prev,word
             prev = pos
@@ -103,15 +106,17 @@ def bigram_model(testing,model):
                 if pos == 'NN':
                     res += 1
                     continue
+    print('bigram:',res/words)
     return res
 def trigram_model(testing,model):
     res = 0
-    
+    words = 0
     
     for sentence in testing:
         bi = [None,None]
         tri = [None,None,None]
         prev = None
+        words += len(sentence)
         for word,pos in sentence:
             bi[0],bi[1] = prev,word
             tri[0],tri[1],tri[2] = tri[1],prev,word
@@ -143,17 +148,18 @@ def trigram_model(testing,model):
                 if pos == 'NN':
                     res += 1
                     continue
+    print(res/words)
     return res
 
 def quadgram_model(testing,model):
     res = 0
-        
-
+    words = 0
     for sentence in testing:
         bi = [None,None]
         tri = [None,None,None]
         quad = [None,None,None,None]
         prev = None
+        words += len(sentence)
         for word,pos in sentence:
             bi[0],bi[1] = prev,word
             tri[0],tri[1],tri[2] = tri[1],prev,word
@@ -195,10 +201,13 @@ def quadgram_model(testing,model):
             if pos == 'NN':
                 res += 1
                 continue
+    print('quadgram:',res/words)
     return res
 
 if __name__ == '__main__':
+    
     with open('sentences.json','r',encoding='utf-8') as f:
+        inp = int(sys.argv[1])
         sentences = json.load(f)
         uni = 0
         bi = 0
@@ -236,10 +245,20 @@ if __name__ == '__main__':
                     sentence.append(word)
                 training_set.append(sentence)
             model = train_model(training_set)
-            uni += unigram_model(testing_set,model)
-            bi += bigram_model(testing_set,model)
-            tri += trigram_model(testing_set,model)
-            quad += quadgram_model(testing_set,model)
+            if inp == 1:
+                uni += unigram_model(testing_set,model)
+            elif inp == 2:
+                uni += unigram_model(testing_set,model)
+                bi += bigram_model(testing_set,model)
+            elif inp == 3:
+                uni += unigram_model(testing_set,model)
+                bi += bigram_model(testing_set,model)
+                tri += trigram_model(testing_set,model)
+            elif inp == 4:
+                uni += unigram_model(testing_set,model)
+                bi += bigram_model(testing_set,model)
+                tri += trigram_model(testing_set,model)
+                quad += quadgram_model(testing_set,model)
         print("unigram:",uni/count)
         print("bigram:",bi/count)
         print("trigram:",tri/count)
