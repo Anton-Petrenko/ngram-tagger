@@ -2,11 +2,40 @@
 
 \subsubsection{Implementation}
 
-Describe how your approach differs from the overall approach (what you did differently in specific, like data structure implementation).
+In Anton's implementation, there is only one dictionary for all the \textit{n}-grams.
+When building the model, the unigram model is built first.
+The reason for this is to be able to identify the unanimous words from the non-unanimous words.
+Following the creation of the unigram model, another pass is done through the data.
+In this pass the bigram, trigram, and quadgram models are created.
+For efficiency, the second pass includes a lookup to the existing unigram model for each word.
+If the word only ever results in one part of speech, there is no reason to save more data about this word.
+If the word appears as multiple parts of speech, we construct each gram by inserting it into the existing dictionary with the history encoded in the key.
+The resulting dictionary contains all \textit{n}-gram versions.
+Keys in the dictionary are strings of the relevant words, where any relevant history is encoded before the word using a circumflex as a delimiter.
+
 
 \begin{lstlisting}[language=Python]
-print('Any example code should be formatted like this')
+for sentence in lines:
+    history = []
+    for word, pos in sentence:
+        if len(unigram[word].keys) > 1:
+            for i in range(len(history)):
+                unigram[f"{'^'.join(history[-(i+1):])}^{word}"][pos] += 1
+        history.append(pos)
+        if len(history) == n: 
+            history.pop(0)
 \end{lstlisting}
+\noindent This is a small pseudocode snippet denoting the process of building the \textit{n}-grams in the second pass of the data.
+As shown, the unigram model is always checked before constructing the other \textit{n}-grams in the same dictionary.
+Keys into the dictionary are strings which lead to another dictionary which contains the part of speech as keys and the number of times it appeared as that part of speech as the values.
+Note the creation of keys which have the history encoded in them, as well as the clearing of the history for each sentence.
+The array which holds the history is also bound by the highest number \textit{n} denoting the highest \textit{n}-gram model to create.
 
 \subsubsection{Results}
-The accuracy of this implementation of the $n$-gram tagger was 100\%, and the program had a total runtime of 100 seconds.
+The results of this implementation of the $n$-gram tagger were as follows:
+\begin{itemize}
+    \item \textbf{Unigram only:} 95.28\% accuracy, runtime of 1m 45.964s
+    \item \textbf{Up to bigram:} 98.07\% accuracy, runtime of 1m 46.061s
+    \item \textbf{Up to trigram:} 98.6\% accuracy, runtime of 1m 45.628s
+    \item \textbf{Up to quadgram:} 98.93\% accuracy, runtime of 1m 45.106s
+\end{itemize}
