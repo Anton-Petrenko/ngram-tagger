@@ -183,6 +183,10 @@ logs.txt
 # Luis implementation files
 logs.txt
 
+# Anton inmplementation files
+/implementation/antonp/__pycache__/
+logs.txt
+
 # latexmk generated files
 *.aux
 *.log

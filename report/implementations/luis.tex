@@ -6,20 +6,20 @@ In cases where a word has multiple parts of speech with equal highest frequencie
 
 \begin{lstlisting}[language=Python]
 for x in range(4):
-        mdl = model[x]
-        for key in list(mdl.keys()):
-            if len(mdl[key]) > 1:
-                maxvalue = max(mdl[key].values())
-                maxval = set()
-                for y in mdl[key]:
-                    if mdl[key][y] == maxvalue:
-                        maxval.add(y)
-                multimodel[x][key] = maxval
-                del mdl[key]
-            else:
-                pos = [x for x in model[x][key]]
-                model[x][key] = pos[0]
-    return model + multimodel
+    mdl = model[x]
+    for key in list(mdl.keys()):
+        if len(mdl[key]) > 1:
+            maxvalue = max(mdl[key].values())
+            maxval = set()
+            for y in mdl[key]:
+                if mdl[key][y] == maxvalue:
+                    maxval.add(y)
+            multimodel[x][key] = maxval
+            del mdl[key]
+        else:
+            pos = [x for x in model[x][key]]
+            model[x][key] = pos[0]
+return model + multimodel
 \end{lstlisting}
 
 \subsubsection{Results}

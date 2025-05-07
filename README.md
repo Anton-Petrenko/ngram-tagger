@@ -50,3 +50,16 @@ time python jackknife.py 3
 time python jackknife.py 2
 time python jackknife.py 1
 ```
+
+## Anton
+
+1. Navigate to the root directory of the repo.
+
+2. Run and time Python script for each desired iteration.
+
+```bash
+time python implementation/antonp/main.py 4
+time python implementation/antonp/main.py 3
+time python implementation/antonp/main.py 2
+time python implementation/antonp/main.py 1
+```
