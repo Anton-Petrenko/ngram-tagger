@@ -2,11 +2,31 @@
 
 \subsubsection{Implementation}
 
-Describe how your approach differs from the overall approach (what you did differently in specific, like data structure implementation).
+In cases where a word has multiple parts of speech with equal highest frequencies---say the word `accused` has a unigram frequency dictionary of \{`VBN`:3, `VBD`:3\}---we assign the word a set containing parts of speech tied for the highest frequency. In the case we reach the non-unanimous dictionaries, instead of checking if the true part of speech is equal to the value, given the key is in the dictionary, we check if the true part of speech is inside the set.
 
 \begin{lstlisting}[language=Python]
-print('Any example code should be formatted like this')
+for x in range(4):
+        mdl = model[x]
+        for key in list(mdl.keys()):
+            if len(mdl[key]) > 1:
+                maxvalue = max(mdl[key].values())
+                maxval = set()
+                for y in mdl[key]:
+                    if mdl[key][y] == maxvalue:
+                        maxval.add(y)
+                multimodel[x][key] = maxval
+                del mdl[key]
+            else:
+                pos = [x for x in model[x][key]]
+                model[x][key] = pos[0]
+    return model + multimodel
 \end{lstlisting}
 
 \subsubsection{Results}
-The accuracy of this implementation of the $n$-gram tagger was 100\%, and the program had a total runtime of 100 seconds.
+The results of this implementation of the $n$-gram tagger were as follows:
+\begin{itemize}
+    \item \textbf{Unigram only:} 94.45\% accuracy, runtime of 1m 45.964s
+    \item \textbf{Up to bigram:} 96.67\% accuracy, runtime of 1m 46.061s
+    \item \textbf{Up to trigram:} 96.86\% accuracy, runtime of 1m 45.628s
+    \item \textbf{Up to quadgram:} 97.22\% accuracy, runtime of 1m 45.106s
+\end{itemize}

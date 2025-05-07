@@ -21644,7 +21644,7 @@ Sentence: 981,His,PRP$,O
 ,of,IN,O
 ,a,DT,O
 ,partially-collapsed,JJ,O
-,college,NN,O
+,college,NN,Otense
 ,dormitory,NN,O
 ,",",",",O
 ,and,CC,O

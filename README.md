@@ -39,3 +39,14 @@ time python ngram_tests.py trigram_output.txt 3
 time python ngram_tests.py bigram_output.txt 2
 time python ngram_tests.py unigram_output.txt 1
 ```
+
+## Luis
+
+1. Run and time Python script for each desired iteration.
+
+```bash
+time python jackknife.py 4
+time python jackknife.py 3
+time python jackknife.py 2
+time python jackknife.py 1
+```

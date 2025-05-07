@@ -180,6 +180,9 @@ models/*
 *_output.txt
 logs.txt
 
+# Luis implementation files
+logs.txt
+
 # latexmk generated files
 *.aux
 *.log
