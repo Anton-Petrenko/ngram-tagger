@@ -94,23 +94,13 @@ This section focuses on the Python implementations of the general approach descr
 
 \section{Reflection}
 
-Some sort of conclusion goes here.
-
-% \begin{center}
-%     \begin{tabular}{ c | c | c }
-%         \hline
-%         & & Accuracy & Runtime (s)
-%         \hline
-%         anton & Unigram & 95.28\% & 17.720
-%         & Bigram & 98.07\% & 26.394 
-%     \end{tabular}
-% \end{center}
+Out of the three different implementations of the base approach, Anton's implementation was the fastest and most accurate. This speed was likely the result of having less overhead by using the built-in Python CSV reading module and storing keys as strings instead of tuples, which take additional time to construct. Luis' approach performed slightly slower than Anton's approach and had slightly lower accuracy, but ran for a consistently short amount of time for all sizes of $n$-gram model. The Merritt's approach performed the slowest by a notable margin, having the most overhead when it came to processing the original data and building the initial dictionary to count occurrences. This was likely due to additional work required by the pandas module when augmenting the data with sentence numbers and history.
 
 \noindent
 \begin{tabular}{|m{4cm}|m{4cm}|m{3cm}|m{3cm}|}
     \hline
     \textbf{} & \textbf{$n$-gram Size} & \textbf{Accuracy} & \textbf{Runtime (s)} \\
-    \hline
+    \hline\hline
     \multirow{4}{*}{Anton}  & Unigram & 95.28\% & 17.720 \\
                             \cline{2-4}
                             & Bigram & 98.07\% & 26.394 \\
@@ -118,7 +108,7 @@ Some sort of conclusion goes here.
                             & Trigram & 98.60\% & 37.253 \\
                             \cline{2-4}
                             & Quadgram & 98.93\% & 48.513 \\
-    \hline
+    \hline\hline
     \multirow{4}{*}{Luis}   & Unigram & 94.45\% & 105.964 \\
                             \cline{2-4}
                             & Bigram & 96.67\% & 106.061 \\
@@ -126,7 +116,7 @@ Some sort of conclusion goes here.
                             & Trigram & 96.86\% & 105.628 \\
                             \cline{2-4}
                             & Quadgram & 97.22\% & 105.106 \\
-    \hline
+    \hline\hline
     \multirow{4}{*}{Merritt}& Unigram & 93.60\% & 313.980 \\
                             \cline{2-4}
                             & Bigram & 95.84\% & 466.116 \\
