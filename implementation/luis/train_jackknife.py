@@ -2,7 +2,7 @@ import json
 import pandas as pd
 def train_data():
     dt = {}
-    raw_dataset = pd.read_csv('ner_dataset2.csv')
+    raw_dataset = pd.read_csv('../ner_dataset2.csv')
     q = []
     count = 0
     for x in range(len(raw_dataset['Sentence #'])):
