@@ -216,4 +216,4 @@ logs.txt
 *.snm
 
 # allow template pdf through for demonstration
-!report/template.pdf
+!report/Team2-FinalReport.pdf
